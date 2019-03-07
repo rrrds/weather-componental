@@ -17,8 +17,16 @@ class FavoriteService {
     this.save();
   }
 
+  toggleCity(cityName) {
+    if (this.data.includes(cityName)) {
+      this.removeCity(cityName);
+    } else {
+      this.addCity(cityName);
+    }
+  }
+
   save() {
-    localStorage.setItem(storageKey, JSON.parse(this.data));
+    localStorage.setItem(storageKey, JSON.stringify(this.data));
     if (this.cb) {
       this.cb(this.getData());
     }
