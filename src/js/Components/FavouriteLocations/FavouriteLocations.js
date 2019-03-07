@@ -21,8 +21,6 @@ export default class FavouriteLocations extends Component {
     if (e.target.localName === 'button') {
       const button = e.target;
 
-      console.log('Click', button.dataset.city);
-
       this.props.handleSearch(button.dataset.city);
     }
   }

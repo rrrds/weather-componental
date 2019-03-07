@@ -3,7 +3,6 @@ import { createElement } from '../../Framework/jsx';
 
 export default class SearchBar extends Component {
   handleSearchSubmit(e) {
-    console.log(e);
     e.preventDefault();
 
     const data = new FormData(e.target);

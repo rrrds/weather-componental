@@ -21,7 +21,5 @@ export function createElement(type, attr, ...args) {
     events
   };
 
-  //   console.log(element);
-
   return element;
 }

@@ -1448,24 +1448,17 @@ const mockForecast = {
 
 class WeatherDataServiceMock extends IWeatherDataService {
   load(cityName = '') {
-    console.log('Load new data');
-
     setTimeout(this.dataLoaded.bind(this), 1300);
   }
 
   dataLoaded() {
-    console.log('New data loaded');
-
     if (this.cbCurrent) {
-      console.log('Call current cb');
-      mockCurrent.main.temp = Date.now();
+      mockCurrent.main.temp += 1;
 
       this.cbCurrent(mockCurrent);
     }
 
     if (this.cbForecast) {
-      console.log('Call forecast cb');
-
       this.cbForecast(mockForecast);
     }
   }
@@ -1479,12 +1472,10 @@ class WeatherDataServiceMock extends IWeatherDataService {
   }
 
   subscribeForCurrentWeather(cb) {
-    console.log('Add Current cb');
     this.cbCurrent = cb;
   }
 
   subscribeForForecastWeather(cb) {
-    console.log('Add Forecast cb');
     this.cbForecast = cb;
   }
 }

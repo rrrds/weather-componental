@@ -13,8 +13,6 @@ export default class WeatherForecast extends Component {
   }
 
   onServerResponse(weatherData) {
-    console.log('onServerResponse Forecast', weatherData);
-
     this.run();
   }
 
@@ -34,16 +32,10 @@ export default class WeatherForecast extends Component {
       { min: Infinity, max: -Infinity }
     );
 
-    console.log(minMaxTemp);
     minMaxTemp.min -= 1;
     minMaxTemp.max += 1;
 
     const step = (minMaxTemp.max - minMaxTemp.min) / 100;
-    console.log(step);
-
-    // const items = data.list.map(item => {
-    //   return <WeatherForecastItem class="forecast__item" data={item} />;
-    // });
 
     const items = data.list.map(item => {
       const height = (item.main.temp - minMaxTemp.min) / step;

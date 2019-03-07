@@ -19,13 +19,10 @@ export default class CurrentWeather extends Component {
   }
 
   onServerResponse(weatherData) {
-    console.log('onServerResponse Current', weatherData);
     this.run();
   }
 
   render() {
-    console.log('Render Current');
-
     const data = WeatherDataService.getCurrentWeather();
     if (!data) return <div />;
 
