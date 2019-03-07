@@ -1,5 +1,6 @@
 import Component from '../../Framework/Component';
 import { createElement } from '../../Framework/jsx';
+import { formatTemperature } from '../../formatters';
 
 export default class ForecastItem extends Component {
   render() {
@@ -9,7 +10,7 @@ export default class ForecastItem extends Component {
         data-temp={this.props.temp}
         data-height={this.props.height}
         style={`--height:${this.props.height}%`}
-        title={`${this.props.temp}`}
+        title={`${formatTemperature(this.props.temp)}`}
       />
     );
   }
