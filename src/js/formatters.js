@@ -1,5 +1,5 @@
 export function formatTemperature(value) {
-  return `${value}°`;
+  return `${Math.round(value)}°`;
 }
 
 export function formatHumidity(value) {
