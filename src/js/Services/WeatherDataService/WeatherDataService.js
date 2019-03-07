@@ -17,8 +17,12 @@ class WeatherDataService extends IWeatherDataService {
         fetchCurrentData(cityName),
         fetchForecastData(cityName)
       ]).then(data => {
-        console.log(data);
-        [this.dataCurrent, this.dataForecast] = data;
+        if (data && data[0].cod == 200) {
+          [this.dataCurrent, this.dataForecast] = data;
+        } else {
+          [this.dataCurrent, this.dataForecast] = [null, null];
+        }
+
         this.dataLoaded();
       });
     }
