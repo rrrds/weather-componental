@@ -1,0 +1,17 @@
+.header {
+  margin-bottom: 2em;
+}
+
+.search-form {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.search__input {
+  width: 100%;
+  border: 1px solid black;
+  margin: 5px;
+  padding: 5px;
+  font-family: inherit;
+  font-size: 1em;
+}
