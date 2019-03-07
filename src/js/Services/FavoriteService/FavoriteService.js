@@ -25,6 +25,10 @@ class FavoriteService {
     }
   }
 
+  isFavorite(cityName) {
+    return this.data.includes(cityName);
+  }
+
   save() {
     localStorage.setItem(storageKey, JSON.stringify(this.data));
     if (this.cb) {

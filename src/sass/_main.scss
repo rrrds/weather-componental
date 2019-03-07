@@ -31,6 +31,7 @@
 }
 
 .weather-icon {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -43,4 +44,18 @@
 .aux-temperature {
   margin: 0 15px;
   padding-top: 20px;
+}
+
+.button-fav {
+  position: absolute;
+  left: 0;
+  top: 0.5em;
+  background: transparent;
+  border: none;
+  font-size: 2em;
+  margin: 0;
+  padding: 0;
+}
+
+.button-fav--isfav {
 }
