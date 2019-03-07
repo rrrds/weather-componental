@@ -1,15 +1,15 @@
 export const fakeFavoritesData = [
   {
-    name: 'London, UK'
+    name: 'London,GB'
   },
   {
-    name: 'Kyiv, UA'
+    name: 'Kyiv,UA'
   },
   {
-    name: 'London, UK'
+    name: 'Madrid,ES'
   },
   {
-    name: 'London, UK'
+    name: 'Munich,DE'
   }
 ];
 
