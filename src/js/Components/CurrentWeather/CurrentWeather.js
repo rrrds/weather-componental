@@ -8,6 +8,7 @@ import {
   formatPressure,
   formatWind
 } from '../../formatters';
+import { FavoriteButton } from '../FavoriteButton';
 
 export default class CurrentWeather extends Component {
   constructor(host, props) {
@@ -38,6 +39,7 @@ export default class CurrentWeather extends Component {
     return (
       <div class="main weather-details">
         <div class="weather-icon">
+          <FavoriteButton name={`${data.name},${data.sys.country}`} />
           <h2>{data.name}</h2>
           <i
             class={`owf owf-${data.weather[0].id} current-weather-icon`}
