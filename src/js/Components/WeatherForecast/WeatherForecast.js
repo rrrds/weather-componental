@@ -20,6 +20,8 @@ export default class WeatherForecast extends Component {
 
   render() {
     const data = WeatherDataService.getWeatherForecast();
+    if (!data) return <div />;
+
     const cnt = data.cnt;
 
     const minMaxTemp = data.list.reduce(

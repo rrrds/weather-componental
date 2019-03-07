@@ -26,6 +26,7 @@ export default class CurrentWeather extends Component {
     console.log('Render Current');
 
     const data = WeatherDataService.getCurrentWeather();
+    if (!data) return <div />;
 
     const items = Object.keys(data.main).map(key => {
       return {
