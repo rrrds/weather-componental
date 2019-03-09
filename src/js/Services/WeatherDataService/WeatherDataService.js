@@ -64,7 +64,6 @@ class WeatherDataService extends IWeatherDataService {
         ? API_UNITS_IMPERIAL
         : API_UNITS_METRIC;
 
-    console.log(this.getCurrentUnit());
     if (this.cbUnitChange) {
       this.cbUnitChange(this.getCurrentUnit());
     }

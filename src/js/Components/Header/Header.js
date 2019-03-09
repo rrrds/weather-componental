@@ -22,7 +22,6 @@ export default class Header extends Component {
   }
 
   handleUnitsChange() {
-    console.log('Change Units');
     WeatherDataService.toggleUnit();
     this.run();
   }
