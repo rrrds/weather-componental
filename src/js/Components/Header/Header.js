@@ -3,6 +3,7 @@ import { createElement } from '../../Framework/jsx';
 import { SearchBar } from '../SearchBar';
 import { FavouriteLocations } from '../FavouriteLocations';
 import { WeatherDataService } from '../../Services/WeatherDataService';
+import { UnitsButton } from '../UnitsButton';
 
 export default class Header extends Component {
   constructor(host, props = {}) {
@@ -20,6 +21,12 @@ export default class Header extends Component {
     }
   }
 
+  handleUnitsChange() {
+    console.log('Change Units');
+    WeatherDataService.toggleUnit();
+    this.run();
+  }
+
   render() {
     return (
       <div>
@@ -34,6 +41,11 @@ export default class Header extends Component {
           class="fav"
           data={this.props.favorites}
           handleSearch={e => this.handleSearch(e)}
+        />
+
+        <UnitsButton
+          unit={WeatherDataService.getCurrentUnit()}
+          handleUnitsChange={e => this.handleUnitsChange(e)}
         />
       </div>
     );
