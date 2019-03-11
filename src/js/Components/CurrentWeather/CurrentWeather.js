@@ -13,18 +13,18 @@ import { FavoriteButton } from '../FavoriteButton';
 export default class CurrentWeather extends Component {
   constructor(host, props) {
     super(host, props);
+    this.state = { data: {} };
 
     this.onServerResponse = this.onServerResponse.bind(this);
     WeatherDataService.subscribeForCurrentWeather(this.onServerResponse);
   }
 
   onServerResponse(weatherData) {
-    this.run();
+    this.setState({ data: weatherData });
   }
 
   render() {
-    const data = WeatherDataService.getCurrentWeather();
-    if (!data) return createElement('div');
+    if (!this.state.data) return createElement('div');
 
     return createElement(
       'div',
@@ -33,12 +33,14 @@ export default class CurrentWeather extends Component {
         'div',
         { class: 'weather-icon' },
         createElement(FavoriteButton, {
-          name: `${data.name},${data.sys.country}`
+          name: `${this.state.data.name},${this.state.data.sys.country}`
         }),
-        createElement('h2', {}, data.name),
+        createElement('h2', {}, this.state.data.name),
         createElement('i', {
-          class: `owf owf-${data.weather[0].id} current-weather-icon`,
-          title: data.weather[0].description
+          class: `owf owf-${
+            this.state.data.weather[0].id
+          } current-weather-icon`,
+          title: this.state.data.weather[0].description
         })
       ),
       createElement(
@@ -51,18 +53,18 @@ export default class CurrentWeather extends Component {
             'div',
             { class: 'aux-temperature' },
             createElement('i', { class: 'fas fa-arrow-circle-down' }),
-            formatTemperature(data.main.temp_min)
+            formatTemperature(this.state.data.main.temp_min)
           ),
           createElement(
             'div',
             { class: 'main-temperature' },
-            formatTemperature(data.main.temp)
+            formatTemperature(this.state.data.main.temp)
           ),
           createElement(
             'div',
             { class: 'aux-temperature' },
             createElement('i', { class: 'fas fa-arrow-circle-up' }),
-            formatTemperature(data.main.temp_max)
+            formatTemperature(this.state.data.main.temp_max)
           )
         ),
         createElement(
@@ -72,19 +74,19 @@ export default class CurrentWeather extends Component {
             'li',
             { title: 'Wind' },
             createElement('i', { class: 'fas fa-wind' }),
-            formatWind(data.wind.speed)
+            formatWind(this.state.data.wind.speed)
           ),
           createElement(
             'li',
             { title: 'Humidity' },
             createElement('i', { class: 'fas fa-tint' }),
-            formatHumidity(data.main.humidity)
+            formatHumidity(this.state.data.main.humidity)
           ),
           createElement(
             'li',
             { title: 'Pressure' },
             createElement('i', { class: 'fas fa-weight-hanging' }),
-            formatPressure(data.main.pressure)
+            formatPressure(this.state.data.main.pressure)
           )
         )
       )

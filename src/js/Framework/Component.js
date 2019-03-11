@@ -10,7 +10,13 @@ export default class Component {
   constructor(host, props = {}) {
     this.host = host;
     this.props = props;
+    this.state = {};
 
+    this.run();
+  }
+
+  setState(newState) {
+    Object.assign(this.state, newState);
     this.run();
   }
 

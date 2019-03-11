@@ -9,21 +9,23 @@ export default class Header extends Component {
   constructor(host, props = {}) {
     super(host, props);
 
-    this.props.cityName = props.cityName || '';
+    this.state = {
+      cityName: props.cityName || '',
+      units: WeatherDataService.getCurrentUnit()
+    };
   }
 
   handleSearch(cityName) {
     if (cityName) {
       WeatherDataService.load(cityName);
 
-      this.props.cityName = cityName;
-      this.run();
+      this.setState({ cityName });
     }
   }
 
   handleUnitsChange() {
     WeatherDataService.toggleUnit();
-    this.run();
+    this.setState({ units: WeatherDataService.getCurrentUnit() });
   }
 
   render() {
@@ -43,7 +45,7 @@ export default class Header extends Component {
       }),
 
       createElement(UnitsButton, {
-        unit: WeatherDataService.getCurrentUnit(),
+        unit: this.state.units,
         handleUnitsChange: e => this.handleUnitsChange(e)
       })
     );
