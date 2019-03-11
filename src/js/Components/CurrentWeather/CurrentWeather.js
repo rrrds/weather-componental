@@ -24,55 +24,70 @@ export default class CurrentWeather extends Component {
 
   render() {
     const data = WeatherDataService.getCurrentWeather();
-    if (!data) return <div />;
+    if (!data) return createElement('div');
 
-    const items = Object.keys(data.main).map(key => {
-      return {
-        tag: 'li',
-        children: [`${key}: ${data.main[key]}`]
-      };
-    });
-
-    return (
-      <div class="main weather-details">
-        <div class="weather-icon">
-          <FavoriteButton name={`${data.name},${data.sys.country}`} />
-          <h2>{data.name}</h2>
-          <i
-            class={`owf owf-${data.weather[0].id} current-weather-icon`}
-            title={data.weather[0].description}
-          />
-        </div>
-        <div>
-          <div class="row data-details">
-            <div class="aux-temperature">
-              <i class="fas fa-arrow-circle-down" />
-              {formatTemperature(data.main.temp_min)}
-            </div>
-            <div class="main-temperature">
-              {formatTemperature(data.main.temp)}
-            </div>
-            <div class="aux-temperature">
-              <i class="fas fa-arrow-circle-up" />
-              {formatTemperature(data.main.temp_max)}
-            </div>
-          </div>
-          <ul class="row data-details data-details--sub">
-            <li title="Wind">
-              <i class="fas fa-wind" />
-              {formatWind(data.wind.speed)}
-            </li>
-            <li title="Humidity">
-              <i class="fas fa-tint" />
-              {formatHumidity(data.main.humidity)}
-            </li>
-            <li title="Pressure">
-              <i class="fas fa-weight-hanging" />
-              {formatPressure(data.main.pressure)}
-            </li>
-          </ul>
-        </div>
-      </div>
+    return createElement(
+      'div',
+      { class: 'main weather-details' },
+      createElement(
+        'div',
+        { class: 'weather-icon' },
+        createElement(FavoriteButton, {
+          name: `${data.name},${data.sys.country}`
+        }),
+        createElement('h2', {}, data.name),
+        createElement('i', {
+          class: `owf owf-${data.weather[0].id} current-weather-icon`,
+          title: data.weather[0].description
+        })
+      ),
+      createElement(
+        'div',
+        {},
+        createElement(
+          'div',
+          { class: 'row data-details' },
+          createElement(
+            'div',
+            { class: 'aux-temperature' },
+            createElement('i', { class: 'fas fa-arrow-circle-down' }),
+            formatTemperature(data.main.temp_min)
+          ),
+          createElement(
+            'div',
+            { class: 'main-temperature' },
+            formatTemperature(data.main.temp)
+          ),
+          createElement(
+            'div',
+            { class: 'aux-temperature' },
+            createElement('i', { class: 'fas fa-arrow-circle-up' }),
+            formatTemperature(data.main.temp_max)
+          )
+        ),
+        createElement(
+          'ul',
+          { class: 'row data-details data-details--sub' },
+          createElement(
+            'li',
+            { title: 'Wind' },
+            createElement('i', { class: 'fas fa-wind' }),
+            formatWind(data.wind.speed)
+          ),
+          createElement(
+            'li',
+            { title: 'Humidity' },
+            createElement('i', { class: 'fas fa-tint' }),
+            formatHumidity(data.main.humidity)
+          ),
+          createElement(
+            'li',
+            { title: 'Pressure' },
+            createElement('i', { class: 'fas fa-weight-hanging' }),
+            formatPressure(data.main.pressure)
+          )
+        )
+      )
     );
   }
 }

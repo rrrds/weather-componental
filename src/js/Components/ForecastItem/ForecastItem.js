@@ -4,14 +4,12 @@ import { formatTemperature } from '../../formatters';
 
 export default class ForecastItem extends Component {
   render() {
-    return (
-      <div
-        class="forecast__column"
-        data-temp={this.props.temp}
-        data-height={this.props.height}
-        style={`--height:${this.props.height}%`}
-        title={`${formatTemperature(this.props.temp)}`}
-      />
-    );
+    return createElement('div', {
+      class: 'forecast__column',
+      'data-temp': this.props.temp,
+      'data-height': this.props.height,
+      style: `--height:${this.props.height}%`,
+      title: formatTemperature(this.props.temp)
+    });
   }
 }

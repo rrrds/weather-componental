@@ -11,16 +11,15 @@ export default class SearchBar extends Component {
   }
 
   render() {
-    return (
-      <form class="search-form" onSubmit={e => this.handleSearchSubmit(e)}>
-        <input
-          class="search__input"
-          name="searchField"
-          value={this.props.cityName || ''}
-        />
-        <button class="button button--search">Search</button>
-        {/* <SearchHistory /> */}
-      </form>
+    return createElement(
+      'form',
+      { class: 'search-form', onSubmit: e => this.handleSearchSubmit(e) },
+      createElement('input', {
+        class: 'search__input',
+        name: 'searchField',
+        value: this.props.cityName || ''
+      }),
+      createElement('button', { class: 'button button--search' }, 'Search')
     );
   }
 }

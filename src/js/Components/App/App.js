@@ -1,4 +1,3 @@
-/* eslint-disable class-methods-use-this */
 import Component from '../../Framework/Component';
 import { createElement } from '../../Framework/jsx';
 import { Header } from '../Header';
@@ -7,12 +6,12 @@ import { WeatherForecast } from '../WeatherForecast';
 
 export default class App extends Component {
   render() {
-    return (
-      <div class="app">
-        <Header class="header" units="C" />
-        <CurrentWeather />
-        <WeatherForecast class="forecast" />
-      </div>
+    return createElement(
+      'div',
+      { class: 'app' },
+      createElement(Header, { class: 'header', units: 'C' }),
+      createElement(CurrentWeather),
+      createElement(WeatherForecast, { class: 'forecast' })
     );
   }
 }

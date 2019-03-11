@@ -29,14 +29,14 @@ export default class FavouriteLocations extends Component {
     this.favorites = FavoriteService.getData();
 
     if (this.favorites.lenght === 0) {
-      return <div />;
+      return createElement('div');
     }
 
     const buttons = this.favorites.map(city => {
-      return (
-        <button data-city={city} class="button button--fav">
-          {city}
-        </button>
+      return createElement(
+        'button',
+        { 'data-city': city, class: 'button button--fav' },
+        city
       );
     });
 

@@ -18,12 +18,10 @@ export default class FavoriteButton extends Component {
       title = 'Remove favorite';
     }
 
-    return (
-      <button
-        class={styleClass}
-        title={title}
-        onClick={() => this.handleClick()}
-      />
-    );
+    return createElement('button', {
+      class: styleClass,
+      title: title,
+      onClick: () => this.handleClick()
+    });
   }
 }

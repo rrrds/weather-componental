@@ -18,7 +18,7 @@ export default class WeatherForecast extends Component {
 
   render() {
     const data = WeatherDataService.getWeatherForecast();
-    if (!data) return <div />;
+    if (!data) return createElement('div');
 
     const cnt = data.cnt;
 
@@ -39,15 +39,12 @@ export default class WeatherForecast extends Component {
 
     const items = data.list.map(item => {
       const height = (item.main.temp - minMaxTemp.min) / step;
-      return <ForecastItem temp={item.main.temp} height={height} />;
+      return createElement(ForecastItem, {
+        temp: item.main.temp,
+        height: height
+      });
     });
 
-    return (
-      <div class="forecast-grid">
-        {/* <div class="forecast__max">{minMaxTemp.max.toString()}</div>
-        <div class="forecast__min">{minMaxTemp.min.toString()}</div> */}
-        {items}
-      </div>
-    );
+    return createElement('div', { class: 'forecast-grid' }, items);
   }
 }

@@ -6,14 +6,14 @@ export default class WeatherForecastItem extends Component {
     const mainData = this.props.data.main;
 
     const details = Object.keys(mainData).map(key => {
-      return <li>{`${key}: ${mainData[key]}`}</li>;
+      return createElement('li', {}, `${key}: ${mainData[key]}`);
     });
 
-    return (
-      <div>
-        {this.props.data.dt_txt}
-        <ul>{details}</ul>
-      </div>
+    return createElement(
+      'div',
+      {},
+      this.props.data.dt_txt,
+      createElement('ul', {}, details)
     );
   }
 }
