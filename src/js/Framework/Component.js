@@ -20,6 +20,8 @@ export default class Component {
   }
 
   run() {
+    this.beforeRender();
+
     this.host.innerHTML = '';
     let content = this.render();
 
@@ -28,6 +30,8 @@ export default class Component {
     }
 
     this.renderChildren(content, this.host);
+
+    this.afterRender();
   }
 
   renderChildren(content, parentDom) {
@@ -74,6 +78,10 @@ export default class Component {
   forceRender() {
     this.run();
   }
+
+  beforeRender() {}
+
+  afterRender() {}
 
   render() {
     return '';
