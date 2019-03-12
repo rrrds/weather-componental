@@ -1,3 +1,4 @@
 import { App } from './Components/App';
 
-new App(document.getElementById('app'));
+const app = new App(document.getElementById('app'));
+app.run();
