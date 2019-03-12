@@ -23,3 +23,18 @@ export function createElement(type, attr, ...args) {
 
   return element;
 }
+
+export function createVDom(component = null, element, dom, children = []) {
+  const vDom = {
+    component,
+    element,
+    dom,
+    children
+  };
+
+  if (component) {
+    component._vDom = vDom;
+  }
+
+  return vDom;
+}
