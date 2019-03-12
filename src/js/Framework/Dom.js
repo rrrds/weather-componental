@@ -1,4 +1,5 @@
 export const TYPE_TEXT_NODE = 'TEXT_NODE';
+export const TYPE_FRAGMENT_NODE = 'TYPE_FRAGMENT_NODE';
 
 function removeClass(dom) {
   dom.classList.remove('div--new');
@@ -12,6 +13,10 @@ function blinkHtmlElemen(dom) {
 export function createDomElement(type = TYPE_TEXT_NODE) {
   if (type === TYPE_TEXT_NODE) {
     return document.createTextNode('');
+  }
+
+  if (type === TYPE_FRAGMENT_NODE) {
+    return document.createDocumentFragment();
   }
 
   if (typeof type === 'string') {
