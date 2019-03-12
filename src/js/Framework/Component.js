@@ -49,12 +49,11 @@ export default class Component {
       return (createDomElement(TYPE_TEXT_NODE).nodeValue = vdom);
     }
 
-    let htmlElement;
+    const htmlElement = createDomElement(vdom.tag);
+    updateClassList(htmlElement, vdom.classList);
+    attachEvents(htmlElement, vdom.events);
 
     if (typeof vdom.tag === 'function') {
-      htmlElement = createDomElement('div');
-      updateClassList(htmlElement, vdom.classList);
-      attachEvents(htmlElement, vdom.events);
       const component = new vdom.tag(htmlElement, vdom.props);
       component.run();
       htmlElement.__kottans_component = component;
@@ -63,9 +62,6 @@ export default class Component {
         htmlElement.dataset.component = vdom.tag.name;
       }
     } else {
-      htmlElement = createDomElement(vdom.tag);
-      updateClassList(htmlElement, vdom.classList);
-      attachEvents(htmlElement, vdom.events);
       attachAttributes(htmlElement, vdom.props);
       if (Array.isArray(vdom.children)) {
         this.renderChildren(vdom.children, htmlElement);
