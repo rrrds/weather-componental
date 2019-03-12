@@ -13,7 +13,7 @@ import { FavoriteButton } from '../FavoriteButton';
 export default class CurrentWeather extends Component {
   constructor(host, props) {
     super(host, props);
-    this.state = { data: {} };
+    this.state = { data: null };
 
     this.onServerResponse = this.onServerResponse.bind(this);
     WeatherDataService.subscribeForCurrentWeather(this.onServerResponse);
