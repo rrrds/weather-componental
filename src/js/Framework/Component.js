@@ -15,9 +15,10 @@ export default class Component {
     this.run();
   }
 
-  setState(newState) {
-    Object.assign(this.state, newState);
-    this.run();
+  setState(changes) {
+    Object.assign(this.state, changes);
+
+    this.forceRender();
   }
 
   run() {
@@ -70,6 +71,10 @@ export default class Component {
     }
 
     return htmlElement;
+  }
+
+  forceRender() {
+    this.run();
   }
 
   render() {
