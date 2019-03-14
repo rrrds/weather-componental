@@ -40,6 +40,10 @@ export default class FavouriteLocations extends Component {
       );
     });
 
-    return <div onClick={e => this.handleFavClick(e)}>{buttons}</div>;
+    return createElement(
+      'div',
+      { onClick: e => this.handleFavClick(e) },
+      buttons
+    );
   }
 }
