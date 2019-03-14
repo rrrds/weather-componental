@@ -114,6 +114,12 @@ export default class Component {
         const newElement = newElements[index];
         const oldElement = childVDom.element;
 
+        if (newElement === null) {
+          childVDom.dom.remove();
+          vDom.splice(index, 1);
+          return;
+        }
+
         if (typeof newElement === 'string') {
           // console.log('Diff text node');
           if (newElement !== oldElement) {
@@ -127,7 +133,7 @@ export default class Component {
           // console.log('diff component');
           this.diff(newElement, childVDom);
         } else {
-          console.log('diff html', newElement.tag);
+          // console.log('diff html', newElement.tag);
           if (newElement.tag !== oldElement.tag) {
             // console.log('recreate html');
             // TODO: recreate html
@@ -145,26 +151,28 @@ export default class Component {
             ) {
               // console.log('Add prop: ' + key);
               attachAttributes(childVDom.dom, { [key]: newElement.props[key] });
-            }
-
-            if (
+            } else if (
               !newElement.props.hasOwnProperty(key) &&
               oldElement.props.hasOwnProperty(key)
             ) {
               // console.log('Delete prop: ' + key);
               removeAttributes(childVDom.dom, key);
-            }
-
-            if (
+            } else if (
               newElement.props.hasOwnProperty(key) &&
               oldElement.props.hasOwnProperty(key) &&
               typeof newElement.props[key] !== 'function' &&
               newElement.props[key] !== oldElement.props[key]
             ) {
-              // console.log('Update prop: ' + key);
+              // console.log('Update prop: ' + key, newElement.props[key]);
               oldElement.props[key] = newElement.props[key];
 
-              attachAttributes(childVDom.dom, { [key]: newElement.props[key] });
+              if (newElement.tag === 'input' && key === 'value') {
+                childVDom.dom.value = newElement.props[key];
+              } else {
+                attachAttributes(childVDom.dom, {
+                  [key]: newElement.props[key]
+                });
+              }
             }
           });
 
