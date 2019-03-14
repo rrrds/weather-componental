@@ -29,14 +29,12 @@ export default class Header extends Component {
   }
 
   render() {
-    return createElement(
-      'div',
-      {},
+    return [
       createElement('h1', {}, 'Weather App'),
       createElement(SearchBar, {
         class: 'search',
         handleSearch: e => this.handleSearch(e),
-        cityName: this.props.cityName
+        cityName: this.state.cityName
       }),
       createElement(FavouriteLocations, {
         class: 'fav',
@@ -48,6 +46,6 @@ export default class Header extends Component {
         unit: this.state.units,
         handleUnitsChange: e => this.handleUnitsChange(e)
       })
-    );
+    ];
   }
 }
