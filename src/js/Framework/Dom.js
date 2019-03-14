@@ -48,3 +48,9 @@ export function attachAttributes(dom, attrs = {}) {
     dom.setAttribute(attrKey, attrs[attrKey]);
   });
 }
+
+export function removeAttributes(dom, attr = null) {
+  if (attr) {
+    dom.removeAttribute(attr);
+  }
+}

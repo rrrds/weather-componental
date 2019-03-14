@@ -3,7 +3,8 @@ import {
   createDomElement,
   updateClassList,
   attachEvents,
-  attachAttributes
+  attachAttributes,
+  removeAttributes
 } from './Dom';
 import { createVDom } from './jsx';
 
@@ -14,36 +15,40 @@ export default class Component {
     this.host = host;
     this.props = props;
     this.state = {};
+
+    this._vDom = null;
+    this._rendered = false;
   }
 
   setState(changes) {
-    Object.assign(this.state, changes);
-
+    this.state = Object.assign({}, this.state, changes);
     this.forceRender();
   }
 
-  run(vDom = null) {
+  run() {
     this.beforeRender();
 
-    this.host.innerHTML = '';
+    // this.host.innerHTML = '';
     let content = this.render();
 
     if (!Array.isArray(content)) {
       content = [content];
     }
 
-    if (!vDom) {
-      vDom = createVDom(this, {}, this.host);
-      // console.log('New vDom');
-    } else {
-      // console.log('Diff prev & new vDom');
+    if (!this._vDom) {
+      createVDom(this, {}, this.host);
+      console.log('create empty vDom');
     }
 
-    this.renderChildren(content, this.host, vDom);
+    if (!this._rendered) {
+      this.renderChildren(content, this.host, this._vDom);
+      this._rendered = true;
+    } else {
+      console.log(`update Component: ${this.constructor.name}`);
+      this.diffChildren(content, this._vDom.children);
+    }
 
     this.afterRender();
-
-    return vDom;
   }
 
   renderChildren(components, parentDom, parentVDom) {
@@ -53,6 +58,111 @@ export default class Component {
         parentVDom.children.push(vDom);
         parentDom.append(vDom.dom);
       });
+  }
+
+  diff(newElement, vDom) {
+    const { element } = vDom;
+
+    const propsKeys = [
+      ...Object.keys(newElement.props || {}),
+      ...Object.keys(element.props || {})
+    ];
+
+    propsKeys.forEach(key => {
+      if (
+        newElement.props.hasOwnProperty(key) &&
+        !element.props.hasOwnProperty(key)
+      ) {
+        console.log('Add prop: ' + key, newElement.props[key]);
+      }
+
+      if (
+        !newElement.props.hasOwnProperty(key) &&
+        element.props.hasOwnProperty(key)
+      ) {
+        console.log('Delete prop: ' + key);
+      }
+
+      if (
+        newElement.props.hasOwnProperty(key) &&
+        element.props.hasOwnProperty(key) &&
+        typeof newElement.props[key] !== 'function' &&
+        newElement.props[key] !== element.props[key]
+      ) {
+        console.log(
+          'Update prop: ' + key,
+          element.props[key],
+          newElement.props[key]
+        );
+        element.props[key] = newElement.props[key];
+      }
+    });
+
+    vDom.component.run();
+  }
+
+  diffChildren(newElements, vDom) {
+    vDom.forEach((childVDom, index) => {
+      const newElement = newElements[index];
+      const oldElement = childVDom.element;
+
+      if (typeof newElement === 'string') {
+        console.log('Diff text node');
+        if (newElement !== oldElement) {
+          childVDom.dom.nodeValue = childVDom.element = newElement;
+        }
+
+        return;
+      }
+
+      if (typeof newElement.tag === 'function') {
+        console.log('diff component');
+        console.log(newElement, childVDom);
+        this.diff(newElement, childVDom);
+      } else {
+        console.log('diff html', newElement.tag);
+        if (newElement.tag !== oldElement.tag) {
+          console.log('recreate html');
+        }
+
+        const propsKeys = [
+          ...Object.keys(newElement.props || {}),
+          ...Object.keys(oldElement.props || {})
+        ];
+
+        propsKeys.forEach(key => {
+          if (
+            newElement.props.hasOwnProperty(key) &&
+            !oldElement.props.hasOwnProperty(key)
+          ) {
+            console.log('Add prop: ' + key);
+            attachAttributes(childVDom.dom, { [key]: newElement.props[key] });
+          }
+
+          if (
+            !newElement.props.hasOwnProperty(key) &&
+            oldElement.props.hasOwnProperty(key)
+          ) {
+            console.log('Delete prop: ' + key);
+            removeAttributes(childVDom.dom, key);
+          }
+
+          if (
+            newElement.props.hasOwnProperty(key) &&
+            oldElement.props.hasOwnProperty(key) &&
+            typeof newElement.props[key] !== 'function' &&
+            newElement.props[key] !== oldElement.props[key]
+          ) {
+            console.log('Update prop: ' + key);
+            oldElement.props[key] = newElement.props[key];
+
+            attachAttributes(childVDom.dom, { [key]: newElement.props[key] });
+          }
+        });
+
+        this.diffChildren(newElement.children, childVDom.children);
+      }
+    });
   }
 
   renderVdomElement(element) {
@@ -88,7 +198,7 @@ export default class Component {
   }
 
   forceRender() {
-    this.run(this._vDom);
+    this.run();
   }
 
   beforeRender() {}
