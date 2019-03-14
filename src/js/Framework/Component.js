@@ -53,6 +53,7 @@ export default class Component {
 
   renderChildren(components, parentDom, parentVDom) {
     components
+      .filter(item => item !== null && typeof item !== 'boolean')
       .map(item => this.renderVdomElement(item))
       .forEach(vDom => {
         parentVDom.children.push(vDom);

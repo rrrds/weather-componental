@@ -18,7 +18,7 @@ export default class WeatherForecast extends Component {
   }
 
   render() {
-    if (!this.state.data) return createElement('div');
+    if (!this.state.data) return null;
 
     const minMaxTemp = this.state.data.list.reduce(
       (acc, item) => {
