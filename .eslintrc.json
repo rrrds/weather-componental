@@ -1,7 +1,9 @@
 {
   "extends": ["airbnb-base", "plugin:prettier/recommended"],
   "rules": {
-    "arrow-parens": "off"
+    "arrow-parens": "off",
+    "class-methods-use-this": "off",
+    "import/prefer-default-export": "off"
   },
   "env": {
     "browser": true,
