@@ -10,14 +10,23 @@
     "build-dev": "parcel build ./src/index.html --no-minify --public-url ./",
     "prebuild": "shx rm -rf dist/",
     "build": "parcel build ./src/index.html --public-url ./",
-    "ghpages": "push-dir --dir=dist --branch=gh-pages"
+    "ghpages": "push-dir --dir=dist --branch=gh-pages",
+    "test": "jest"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest"
+    }
   },
   "dependencies": {
     "shx": "^0.3.2"
   },
   "devDependencies": {
+    "@babel/core": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
     "@fortawesome/fontawesome-free": "^5.7.2",
     "babel-core": "^6.26.3",
+    "babel-jest": "^24.5.0",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "cssnano": "^4.1.10",
     "eslint": "^5.15.0",
@@ -25,6 +34,7 @@
     "eslint-config-prettier": "^4.1.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-prettier": "^3.0.1",
+    "jest": "^24.5.0",
     "prettier": "^1.16.4",
     "sass": "^1.17.2"
   }
