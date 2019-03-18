@@ -1,3 +1,5 @@
+const boxShadow = '0 0 5px 2px red';
+
 export function showChanges(root) {
   const targetNode = root;
   const config = {
@@ -19,10 +21,7 @@ export function showChanges(root) {
           ? mutation.target.parentElement
           : mutation.target;
 
-      dom.style = `box-shadow: 0 0 5px 2px red;
-    transition-property: box-shadow;
-    transition-duration: 0.5s;
-    transition-delay: 0;`;
+      dom.style.boxShadow = boxShadow;
     });
   }
 
@@ -33,7 +32,7 @@ export function showChanges(root) {
           ? mutation.target.parentElement
           : mutation.target;
 
-      dom.style = '';
+      dom.style.boxShadow = '';
     });
   }
 
