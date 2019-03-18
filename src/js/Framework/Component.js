@@ -106,8 +106,7 @@ export default class Component {
 
   diffChildren(newElements, vDom) {
     if (newElements.length !== vDom.length) {
-      // console.log('Recreate all children');
-      this._rendered = false;
+      this.cleanDom();
       this.run();
     } else {
       vDom.forEach((childVDom, index) => {
@@ -180,6 +179,12 @@ export default class Component {
         }
       });
     }
+  }
+
+  cleanDom() {
+    this.host.innerHTML = '';
+    this._vDom.children = [];
+    this._rendered = false;
   }
 
   renderVdomElement(element) {
