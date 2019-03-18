@@ -6,15 +6,14 @@ export default class FavouriteLocations extends Component {
   constructor(host, props) {
     super(host, props);
 
-    this.favorites = FavoriteService.getData();
+    this.state = { favorites: FavoriteService.getData() };
 
     this.onFavoritesUpdate = this.onFavoritesUpdate.bind(this);
     FavoriteService.subscribeForUpdate(this.onFavoritesUpdate);
   }
 
   onFavoritesUpdate(data) {
-    this.favorites = data;
-    this.run();
+    this.setState({ favorites: data });
   }
 
   handleFavClick(e) {
@@ -26,13 +25,11 @@ export default class FavouriteLocations extends Component {
   }
 
   render() {
-    this.favorites = FavoriteService.getData();
-
-    if (this.favorites.lenght === 0) {
-      return createElement('div');
+    if (this.state.favorites.lenght === 0) {
+      return false;
     }
 
-    const buttons = this.favorites.map(city => {
+    const buttons = this.state.favorites.map(city => {
       return createElement(
         'button',
         { 'data-city': city, class: 'button button--fav' },

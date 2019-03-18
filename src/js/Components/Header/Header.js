@@ -38,7 +38,6 @@ export default class Header extends Component {
       }),
       createElement(FavouriteLocations, {
         class: 'fav',
-        data: this.props.favorites,
         handleSearch: e => this.handleSearch(e)
       }),
 
