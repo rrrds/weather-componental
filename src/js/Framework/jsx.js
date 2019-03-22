@@ -7,10 +7,14 @@ export function createElement(type, attr, ...args) {
   const events = Object.keys(props)
     .filter(key => key.startsWith('on'))
     .map(key => {
-      return {
+      const event = {
         eventType: key.substr(2).toLowerCase(),
         handler: props[key]
       };
+
+      delete props[key];
+
+      return event;
     });
 
   const element = {
