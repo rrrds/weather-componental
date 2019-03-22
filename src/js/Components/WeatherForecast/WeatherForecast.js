@@ -3,6 +3,7 @@ import { createElement } from '../../Framework/jsx';
 import { WeatherDataService } from '../../Services/WeatherDataService';
 import { WeatherForecastItem } from '../WeatherForecastItem';
 import { ForecastItem } from '../ForecastItem';
+import ComponentFactory from '../../Framework/ComponentFactory';
 
 export default class WeatherForecast extends Component {
   constructor(host, props) {
@@ -46,3 +47,5 @@ export default class WeatherForecast extends Component {
     return createElement('div', { class: 'forecast-grid' }, items);
   }
 }
+
+ComponentFactory.register(WeatherForecast);

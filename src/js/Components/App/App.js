@@ -3,6 +3,7 @@ import { createElement } from '../../Framework/jsx';
 import { Header } from '../Header';
 import { CurrentWeather } from '../CurrentWeather';
 import { WeatherForecast } from '../WeatherForecast';
+import ComponentFactory from '../../Framework/ComponentFactory';
 
 export default class App extends Component {
   render() {
@@ -15,3 +16,5 @@ export default class App extends Component {
     );
   }
 }
+
+ComponentFactory.register(App);

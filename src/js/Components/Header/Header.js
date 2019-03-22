@@ -4,6 +4,7 @@ import { SearchBar } from '../SearchBar';
 import { FavouriteLocations } from '../FavouriteLocations';
 import { WeatherDataService } from '../../Services/WeatherDataService';
 import { UnitsButton } from '../UnitsButton';
+import ComponentFactory from '../../Framework/ComponentFactory';
 
 export default class Header extends Component {
   constructor(host, props = {}) {
@@ -48,3 +49,5 @@ export default class Header extends Component {
     ];
   }
 }
+
+ComponentFactory.register(Header);

@@ -2,6 +2,7 @@ import Component from '../../Framework/Component';
 import { createElement } from '../../Framework/jsx';
 import { FavoriteService } from '../../Services/FavoriteService';
 import { favoriteService } from '../../Services/FavoriteService/FavoriteService';
+import ComponentFactory from '../../Framework/ComponentFactory';
 
 export default class FavoriteButton extends Component {
   handleClick() {
@@ -25,3 +26,5 @@ export default class FavoriteButton extends Component {
     });
   }
 }
+
+ComponentFactory.register(FavoriteButton);

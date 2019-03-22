@@ -9,6 +9,7 @@ import {
   formatWind
 } from '../../formatters';
 import { FavoriteButton } from '../FavoriteButton';
+import ComponentFactory from '../../Framework/ComponentFactory';
 
 export default class CurrentWeather extends Component {
   constructor(host, props) {
@@ -94,3 +95,5 @@ export default class CurrentWeather extends Component {
     );
   }
 }
+
+ComponentFactory.register(CurrentWeather);

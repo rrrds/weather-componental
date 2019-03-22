@@ -1,5 +1,6 @@
 import Component from '../../Framework/Component';
 import { createElement } from '../../Framework/jsx';
+import ComponentFactory from '../../Framework/ComponentFactory';
 
 export default class SearchBar extends Component {
   handleSearchSubmit(e) {
@@ -23,3 +24,5 @@ export default class SearchBar extends Component {
     );
   }
 }
+
+ComponentFactory.register(SearchBar);

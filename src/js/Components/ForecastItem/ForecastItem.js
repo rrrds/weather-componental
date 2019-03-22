@@ -1,6 +1,7 @@
 import Component from '../../Framework/Component';
 import { createElement } from '../../Framework/jsx';
 import { formatTemperature } from '../../formatters';
+import ComponentFactory from '../../Framework/ComponentFactory';
 
 export default class ForecastItem extends Component {
   render() {
@@ -13,3 +14,5 @@ export default class ForecastItem extends Component {
     });
   }
 }
+
+ComponentFactory.register(ForecastItem);

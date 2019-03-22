@@ -1,6 +1,7 @@
 import Component from '../../Framework/Component';
 import { createElement } from '../../Framework/jsx';
 import { FavoriteService } from '../../Services/FavoriteService';
+import ComponentFactory from '../../Framework/ComponentFactory';
 
 export default class FavouriteLocations extends Component {
   constructor(host, props) {
@@ -44,3 +45,5 @@ export default class FavouriteLocations extends Component {
     );
   }
 }
+
+ComponentFactory.register(FavouriteLocations);

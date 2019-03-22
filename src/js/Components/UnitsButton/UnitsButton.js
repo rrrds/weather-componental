@@ -1,5 +1,6 @@
 import Component from '../../Framework/Component';
 import { createElement } from '../../Framework/jsx';
+import ComponentFactory from '../../Framework/ComponentFactory';
 
 export default class UnitsButton extends Component {
   render() {
@@ -38,3 +39,5 @@ export default class UnitsButton extends Component {
     );
   }
 }
+
+ComponentFactory.register(UnitsButton);
