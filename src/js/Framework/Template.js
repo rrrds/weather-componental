@@ -112,14 +112,14 @@ export function stringify(ast, fnName = 'createElement') {
 
 function findPropsTpl(tpl, values, placeholder) {
   const props = {};
-  let prop = tpl.match(/((\w+)=\{([^{]+)\})/);
+  let prop = tpl.match(/(([\w-]+)=\{([^{]+)\})/);
 
   while (prop) {
     props[prop[2]] = prop[3] === placeholder ? values.shift() : prop[3];
 
     tpl = tpl.substring(prop.index + prop[1].length);
 
-    prop = tpl.match(/((\w+)=\{(.+)\})/);
+    prop = tpl.match(/(([\w-]+)=\{(.+)\})/);
   }
 
   return props;
