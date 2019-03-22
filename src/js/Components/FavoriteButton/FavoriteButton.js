@@ -1,8 +1,8 @@
 import Component from '../../Framework/Component';
-import { createElement } from '../../Framework/jsx';
 import { FavoriteService } from '../../Services/FavoriteService';
 import { favoriteService } from '../../Services/FavoriteService/FavoriteService';
 import ComponentFactory from '../../Framework/ComponentFactory';
+import { parseJSX } from '../../Framework/Template';
 
 export default class FavoriteButton extends Component {
   handleClick() {
@@ -19,11 +19,13 @@ export default class FavoriteButton extends Component {
       title = 'Remove favorite';
     }
 
-    return createElement('button', {
-      class: styleClass,
-      title: title,
-      onClick: () => this.handleClick()
-    });
+    return parseJSX`
+      <button
+        class={${styleClass}}
+        title={${title}}
+        onClick={${() => this.handleClick()}}
+        type={button}
+      ></button>`;
   }
 }
 

@@ -4,6 +4,7 @@ import { WeatherDataService } from '../../Services/WeatherDataService';
 import { WeatherForecastItem } from '../WeatherForecastItem';
 import { ForecastItem } from '../ForecastItem';
 import ComponentFactory from '../../Framework/ComponentFactory';
+import { parseJSX } from '../../Framework/Template';
 
 export default class WeatherForecast extends Component {
   constructor(host, props) {
@@ -38,13 +39,11 @@ export default class WeatherForecast extends Component {
 
     const items = this.state.data.list.map(item => {
       const height = (item.main.temp - minMaxTemp.min) / step;
-      return createElement(ForecastItem, {
-        temp: item.main.temp,
-        height: height
-      });
+      return parseJSX`
+        <ForecastItem temp={${item.main.temp}} height={${height}} />`[0]; // TODO: fix
     });
 
-    return createElement('div', { class: 'forecast-grid' }, items);
+    return parseJSX`<div class={forecast-grid}>${items}</div>`;
   }
 }
 
